@@ -1,3 +1,5 @@
+// CPU implementation
+
 #include "CPU.hpp"
 
 namespace gb {
