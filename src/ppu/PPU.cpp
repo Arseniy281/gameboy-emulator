@@ -1,5 +1,3 @@
-// CPU_implementation
-
 #include "PPU.hpp"
 #include "CPU.hpp" // for Bus declaration and IF/IE access via bus
 #include <cstdio>
