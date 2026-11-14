@@ -1,0 +1,23 @@
+# Build directories
+build/
+Testing/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+
+# macOS
+.DS_Store
+
+# IDE & Tools
+.vscode/
+.idea/
+.opencode/
+
+# ROMs (не заливаем игры из-за авторских прав)
+*.gb
+*.gbc
+tests/roms/
+
+# Logs and external tools
+*.log
+gameboy-doctor/
