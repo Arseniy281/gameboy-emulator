@@ -1,7 +1,4 @@
 #include "CPU.hpp"
-#include <cstdio>
-#include <array>
-#include <cstdint>
 
 namespace gb {
 
