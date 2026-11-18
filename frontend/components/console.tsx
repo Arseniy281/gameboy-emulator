@@ -1,0 +1,10 @@
+'use client'
+import { useRef } from 'react'
+import { Cartridge } from './pixels'
+import { ChevronUp,ChevronDown,ChevronLeft,ChevronRight } from 'lucide-react'
+export function Console({rom,playing,loaded}:{rom:ArrayBuffer|null,playing:boolean,loaded:boolean}){
+ const frame=useRef<HTMLIFrameElement>(null)
+ const send=(key:string,down:boolean)=>frame.current?.contentWindow?.postMessage({key,down},location.origin)
+ const props=(key:string)=>({disabled:!playing,'aria-label':key,onPointerDown:(e:React.PointerEvent<HTMLButtonElement>)=>{e.currentTarget.setPointerCapture(e.pointerId);send(key,true)},onPointerUp:()=>send(key,false),onPointerCancel:()=>send(key,false),onKeyDown:(e:React.KeyboardEvent)=>{if(['Enter',' '].includes(e.key)){e.preventDefault();send(key,true)}},onKeyUp:(e:React.KeyboardEvent)=>{if(['Enter',' '].includes(e.key))send(key,false)}})
+ return <section className="console" aria-label="Handheld console"><div className="shellhead"><span><i className="led"/> POWER</span><b>POCKET SYSTEM <em>01</em></b></div><div className="bezel"><div className="bezelhead"><i/> DOT MATRIX DISPLAY <i/></div><div className="lcd">{playing?<iframe ref={frame} title="Game Boy game screen" src="/player.html" onLoad={()=>{frame.current?.contentWindow?.postMessage({rom},location.origin);frame.current?.focus()}}/>:<div className="standby"><div><Cartridge/><strong>{loaded?'CARTRIDGE READY':'STANDBY'}</strong><p>{loaded?'Press Play to start':'Game screen will appear here'}</p></div></div>}</div><div className="bezelfoot"><b>POCKET <i>LCD</i></b><span>160 × 144</span></div></div><div className="hardware"><div className="dpad">{[['Up',ChevronUp],['Left',ChevronLeft],['Right',ChevronRight],['Down',ChevronDown]].map(([k,I])=>{const Icon=I as typeof ChevronUp;return <button key={String(k)} className={String(k)} {...props(String(k))}><Icon size={16}/></button>})}<i/></div><div className="options">{['Select','Start'].map(k=><button key={k} {...props(k)}><i/>{k}</button>)}</div><div className="actionkeys">{['B','A'].map(k=><button key={k} {...props(k)}>{k}</button>)}</div></div><div className="shellfoot"><span>DMG–01</span><i/></div></section>
+}
