@@ -2,6 +2,9 @@
 
 #include "CPU.hpp"
 
+#include <cstdint>
+#include <cstdio>
+
 namespace gb {
 
 static inline uint8_t read8(Bus* bus, uint16_t addr) {
