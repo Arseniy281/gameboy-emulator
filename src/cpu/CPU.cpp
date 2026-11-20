@@ -1,8 +1,6 @@
 // CPU implementation
 
 #include "CPU.hpp"
-#include <cstdint>
-#include <cstdio>
 
 namespace gb {
 
